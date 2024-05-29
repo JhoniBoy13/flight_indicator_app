@@ -1,36 +1,46 @@
-import {Request, Response} from "express";
-import {getRepository, Repository} from "typeorm";
+import {Request, Response} from 'express';
 import {FlightIndicator} from "../entities/FlightIndicator";
+import {FlightIndicatorService} from "../services/flightIndicatorService";
 
-export const createFlightIndicator = async (req: Request, res: Response) => {
-    try {
-        const flightIndicatorRepository: Repository<FlightIndicator> = getRepository(FlightIndicator);
-        const newFlightIndicator: FlightIndicator[] = flightIndicatorRepository.create(req.body);
-        await flightIndicatorRepository.save(newFlightIndicator);
-        res.status(201).json(newFlightIndicator);
-    } catch (error: unknown) {
-        if (error instanceof Error) {
-            console.error("failed to add the flight indicators:", error.message);
-        } else {
-            console.error("Unknown error:", error);
+
+export class FlightIndicatorController {
+    private flightIndicatorService: FlightIndicatorService = new  FlightIndicatorService();
+    async save(req: Request, res: Response): Promise<any> {
+        const {ALT, HIS, ADI} = req.body;
+
+        if (!ALT || !HIS || !ADI) {
+            return res.status(400).json({message: 'Missing required fields (ALT, HIS, ADI)'});
+        }
+
+        const newFlightIndicator: FlightIndicator = new FlightIndicator();
+        newFlightIndicator.ALT = ALT;
+        newFlightIndicator.HIS = HIS;
+        newFlightIndicator.ADI = ADI;
+
+        try {
+            const savedFlightIndicator: FlightIndicator = await this.flightIndicatorService.createFlightIndicator(newFlightIndicator);
+            await res.status(201).json(savedFlightIndicator);
+        }
+        catch (error) {
+            console.error(error);
+            await res.status(500).json({message: 'Internal Server Error'});
         }
     }
-};
 
-export const getFlightIndicatorById = async (req: Request, res: Response) => {
-    try {
-        const flightIndicatorRepository = getRepository(FlightIndicator);
-        const flightIndicator = await flightIndicatorRepository.findOneById(req.params.id);
-        if (!flightIndicator) {
-            res.status(404).json({message: "Flight indicator not found"});
-        } else {
-            res.status(201).json(flightIndicator);
+    async findOneById(req: Request, res: Response): Promise<any> {
+        const id = req.params.id;
+
+        try {
+            const flightIndicator: FlightIndicator = await this.flightIndicatorService.findOneById(parseInt(id)); // Optional (use service)
+
+            if (!flightIndicator) {
+                return res.status(404).json({message: 'Flight Indicator not found'});
+            }
+            res.json(flightIndicator);
         }
-    } catch (error: unknown) {
-        if (error instanceof Error) {
-            res.status(500).json({message: "Failed to fetch flight indicator", error: error.message});
-        } else {
-            console.error("Unknown error:", error);
+        catch (error) {
+            console.error(error);
+            await res.status(500).json({message: 'Internal Server Error'});
         }
     }
-};
+}

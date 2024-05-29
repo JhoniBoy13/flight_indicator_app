@@ -1,1 +1,4 @@
 node_modules/
+/.idea/modules.xml
+/.idea/server.iml
+/.idea/workspace.xml
