@@ -1,16 +1,13 @@
 import * as express from "express"
-import {Request, Response} from "express"
+import {Express} from "express"
 import * as bodyParser from "body-parser"
 import {AppDataSource} from "../data-source"
 import FlightIndicatorRoutes from "./routes/flightIndicatorRoutes";
-const handleError = (err: Error, req: Request, res: Response) => {
-    console.error(err.stack); // Log the error for debugging
-    res.status(500).send('Internal Server Error'); // Send generic error response
-};
+import {handleError} from "./middleware/errorHandler";
 
-AppDataSource.initialize().then(async () => {
+AppDataSource.initialize().then(async () : Promise<void> => {
 
-    const app = express();
+    const app: Express = express();
     app.use(bodyParser.json());
 
     app.use('/api', FlightIndicatorRoutes);
@@ -21,3 +18,4 @@ AppDataSource.initialize().then(async () => {
 
     console.log("Express server has started on port 3000.");
 }).catch(error => console.error(error));
+

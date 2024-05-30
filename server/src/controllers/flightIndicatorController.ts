@@ -9,7 +9,19 @@ export class FlightIndicatorController {
         const {ALT, HIS, ADI} = req.body;
 
         if (!ALT || !HIS || !ADI) {
-            return res.status(400).json({message: 'Missing required fields (ALT, HIS, ADI)'});
+            return res.status(400).json({ message: 'Missing required fields (ALT, HIS, ADI)' });
+        }
+
+        if (ALT < 0 || ALT > 3000) {
+            return res.status(400).json({ message: 'ALT must be between 0 and 3000' });
+        }
+
+        if (HIS < 0 || HIS > 360) {
+            return res.status(400).json({ message: 'HIS must be between 0 and 360' });
+        }
+
+        if (ADI < -100 || ADI > 100) {
+            return res.status(400).json({ message: 'ADI must be between -100 and 100' });
         }
 
         const newFlightIndicator: FlightIndicator = new FlightIndicator();
@@ -28,10 +40,10 @@ export class FlightIndicatorController {
     }
 
     async findOneById(req: Request, res: Response): Promise<any> {
-        const id = req.params.id;
+        const id: string = req.params.id;
 
         try {
-            const flightIndicator: FlightIndicator = await this.flightIndicatorService.findOneById(parseInt(id)); // Optional (use service)
+            const flightIndicator: FlightIndicator = await this.flightIndicatorService.findOneById(parseInt(id));
 
             if (!flightIndicator) {
                 return res.status(404).json({message: 'Flight Indicator not found'});
