@@ -1,9 +1,10 @@
-import express, {Router} from "express";
-import {createFlightIndicator, getFlightIndicatorById} from "../controllers/flightIndicatorController";
+import  { Router } from "express";
+import {FlightIndicatorController} from "../controllers/flightIndicatorController";
 
-const router:Router = express.Router();
+const router: Router = Router();
+const flightIndicatorController: FlightIndicatorController = new FlightIndicatorController();
 
-router.post("/flight-indicators/post", createFlightIndicator);
-router.get("/flight-indicators/get/:id", getFlightIndicatorById);
+router.post("/flight-indicators", (req, res) => flightIndicatorController.save(req, res));
+router.get("/flight-indicators/:id", (req, res) => flightIndicatorController.findOneById(req, res));
 
 export default router;

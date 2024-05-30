@@ -1,16 +1,18 @@
-import {Column, Entity, PrimaryGeneratedColumn} from "typeorm";
-@Entity({ name: "FLIGHTINDICATORLOG" })
+import { Entity, PrimaryGeneratedColumn, Column } from "typeorm"
+
+@Entity()
 export class FlightIndicator {
 
-    @PrimaryGeneratedColumn({name: "ID"})
+    @PrimaryGeneratedColumn()
     ID: number;
 
-    @Column({name: "ALT"})
+    @Column()
     ALT: number;
 
-    @Column({name: "HIS"})
+    @Column()
     HIS: number;
 
-    @Column({name: "ADI", nullable: true}) // Specify that ADI column can be NULL
+    @Column()
     ADI: number;
+
 }

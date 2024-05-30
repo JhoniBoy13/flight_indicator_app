@@ -1,1 +1,6 @@
 /.idea/
+/server/dist/controllers/flightIndicatorController.js
+/server/dist/entities/FlightIndicator.js
+/server/dist/routes/flightIndicatorRoutes.js
+/server/dist/services/flightIndicatorService.js
+/server/dist/server.js
