@@ -1,15 +1,14 @@
 {
   "compilerOptions": {
-    "target": "es2016",
+    "lib": ["es5", "es6"],
+    "target": "es6",
     "module": "commonjs",
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "strict": true,
-    "strictPropertyInitialization": false,
-    "skipLibCheck": true,
-    "resolveJsonModule": true,   /* Allow importing JSON modules */
     "moduleResolution": "node",
+    "outDir": "./build",
     "emitDecoratorMetadata": true,
-    "experimentalDecorators": true  /* Use Node.js resolution strategy for module resolution */
-  }
+    "experimentalDecorators": true,
+    "sourceMap": true
+  },
+  "include": ["src/**/*.js","src/**/*.ts"],
+  "exclude": ["node_modules"]
 }
