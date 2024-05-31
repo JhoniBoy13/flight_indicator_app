@@ -1,11 +1,10 @@
 import React from 'react';
 import {
-    AnnotationDirective,
-    AnnotationsDirective,
     AxesDirective,
     AxisDirective,
     CircularGaugeComponent,
-    PointerDirective, PointersDirective
+    PointerDirective,
+    PointersDirective
 } from "@syncfusion/ej2-react-circulargauge";
 
 export function FIComposeGraph({ degree }: { degree: number }): React.JSX.Element {
@@ -20,8 +19,7 @@ export function FIComposeGraph({ degree }: { degree: number }): React.JSX.Elemen
                     bottom: 50,
                     left: 50,
                     right: 50,
-                }}/* Adjust height of the gauge */
-
+                }}
             >
                 <AxesDirective>
                     <AxisDirective
@@ -55,25 +53,25 @@ export function FIComposeGraph({ degree }: { degree: number }): React.JSX.Elemen
                     >
                         <PointersDirective>
                             <PointerDirective
-                                value={degree} // External pointer at the given degree
-                                radius='110%' // Set radius to 100%
+                                value={degree}
+                                radius='110%'
                                 color='#FF0000'
                                 type='Marker'
                                 markerShape='InvertedTriangle'
                                 markerWidth={15}
 
                                 markerHeight={15}
-                                offset={10} // Positive offset to ensure visibility
+                                offset={10}
                             />
                             <PointerDirective
-                                value={degree} // External pointer at the given degree
-                                radius='95px' // Set radius to 100%
+                                value={degree}
+                                radius='95px'
                                 color='#FF0000'
                                 type='Marker'
-                                markerShape='Triangle' // Change to 'Triangle' for pointer shape
-                                markerWidth={10} // Thinner arrow
-                                markerHeight={95} // Height half the radius (300px / 2 = 150px, radius is 75%)
-                                offset={0} // No offset to sit perfectly on the value
+                                markerShape='Triangle'
+                                markerWidth={10}
+                                markerHeight={95}
+                                offset={0}
                             />
                         </PointersDirective>
                     </AxisDirective>
