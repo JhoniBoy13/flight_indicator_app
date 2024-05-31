@@ -1,27 +1,36 @@
-import {Request, Response} from 'express';
-import {FlightIndicator} from "../entities/FlightIndicator";
-import {FlightIndicatorService} from "../services/flightIndicatorService";
-
+import { Request, Response } from 'express';
+import { FlightIndicator } from "../entities/FlightIndicator";
+import { FlightIndicatorService } from "../services/flightIndicatorService";
+import { ErrorHandler } from "../middleware/errorHandler";
+import flightIndicatorData from "../data/flightIndicatorData.json"
 
 export class FlightIndicatorController {
-    private flightIndicatorService: FlightIndicatorService = new  FlightIndicatorService();
-    async save(req: Request, res: Response): Promise<any> {
-        const {ALT, HIS, ADI} = req.body;
+    private flightIndicatorService: FlightIndicatorService = new FlightIndicatorService();
+    private errorHandlers: ErrorHandler = new ErrorHandler();
+
+    async validateSaveRequest(req: Request, res: Response): Promise<boolean> {
+        const { ALT, HIS, ADI } = req.body;
 
         if (!ALT || !HIS || !ADI) {
-            return res.status(400).json({ message: 'Missing required fields (ALT, HIS, ADI)' });
+            return this.errorHandlers.getError(res, 'MISSING_FIELDS');
         }
-
-        if (ALT < 0 || ALT > 3000) {
-            return res.status(400).json({ message: 'ALT must be between 0 and 3000' });
+        if (ALT < flightIndicatorData.alt.min || ALT > flightIndicatorData.alt.max) {
+            return this.errorHandlers.getError(res, 'INVALID_ALT');
         }
-
-        if (HIS < 0 || HIS > 360) {
-            return res.status(400).json({ message: 'HIS must be between 0 and 360' });
+        if (HIS < flightIndicatorData.his.min || HIS > flightIndicatorData.his.max) {
+            return this.errorHandlers.getError(res, 'INVALID_HIS');
         }
+        if (ADI < flightIndicatorData.adi.min || ADI > flightIndicatorData.adi.max) {
+            return this.errorHandlers.getError(res, 'INVALID_ADI');
+        }
+        return true;
+    }
 
-        if (ADI < -100 || ADI > 100) {
-            return res.status(400).json({ message: 'ADI must be between -100 and 100' });
+    async save(req: Request, res: Response): Promise<void> {
+        const { ALT, HIS, ADI } = req.body;
+
+        if (!(await this.validateSaveRequest(req, res))) {
+            return;
         }
 
         const newFlightIndicator: FlightIndicator = new FlightIndicator();
@@ -31,28 +40,49 @@ export class FlightIndicatorController {
 
         try {
             const savedFlightIndicator: FlightIndicator = await this.flightIndicatorService.createFlightIndicator(newFlightIndicator);
-            await res.status(201).json(savedFlightIndicator);
-        }
-        catch (error) {
-            console.error(error);
-            await res.status(500).json({message: 'Internal Server Error'});
+            res.status(201).json(savedFlightIndicator);
+        } catch (error) {
+            this.errorHandlers.getError(res, 'INTERNAL_SERVER_ERROR');
         }
     }
 
-    async findOneById(req: Request, res: Response): Promise<any> {
+    async validateFindByIdRequest(req: Request, res: Response): Promise<boolean> {
         const id: string = req.params.id;
+
+        if (!id) {
+            return this.errorHandlers.getError(res, 'ID_MISSING');
+        }
+
+        const parsedId: number = parseInt(id);
+
+        if (isNaN(parsedId) || !Number.isInteger(id)) {
+            return this.errorHandlers.getError(res, 'INVALID_ID');
+        }
+
+        if (parsedId <= 0) {
+            return this.errorHandlers.getError(res, 'ID_POSITIVE');
+        }
+
+        return true;
+    }
+
+    async findOneById(req: Request, res: Response): Promise<void> {
+        const id: string = req.params.id;
+
+        if (!(await this.validateFindByIdRequest(req, res))) {
+            return;
+        }
 
         try {
             const flightIndicator: FlightIndicator = await this.flightIndicatorService.findOneById(parseInt(id));
 
             if (!flightIndicator) {
-                return res.status(404).json({message: 'Flight Indicator not found'});
+                this.errorHandlers.getError(res, 'FLIGHT_INDICATOR_NOT_FOUND');
+                return;
             }
             res.json(flightIndicator);
-        }
-        catch (error) {
-            console.error(error);
-            await res.status(500).json({message: 'Internal Server Error'});
+        } catch (error) {
+            this.errorHandlers.getError(res, 'INTERNAL_SERVER_ERROR');
         }
     }
 }
