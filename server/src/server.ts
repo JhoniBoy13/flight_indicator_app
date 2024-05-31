@@ -1,18 +1,20 @@
-import * as express from "express"
-import {Express} from "express"
+import express from "express";
 import * as bodyParser from "body-parser"
 import {AppDataSource} from "../data-source"
 import FlightIndicatorRoutes from "./routes/flightIndicatorRoutes";
-import {handleError} from "./middleware/errorHandler";
+import {ErrorHandler} from "./middleware/errorHandler";
+import {Express} from "express";
 
 AppDataSource.initialize().then(async () : Promise<void> => {
 
     const app: Express = express();
+    const errorHandler: ErrorHandler = new ErrorHandler();
+
     app.use(bodyParser.json());
 
     app.use('/api', FlightIndicatorRoutes);
 
-    app.use(handleError);
+    app.use(errorHandler.handleServerError);
 
     app.listen(3000, () => console.log(`Server listening on port 3000`));
 

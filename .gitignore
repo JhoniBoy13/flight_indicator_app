@@ -6,3 +6,5 @@
 /server/dist/server.js
 /server/dist/
 /server/.idea/
+/client/node_modules/
+/client/public/
