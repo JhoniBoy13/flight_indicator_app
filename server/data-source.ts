@@ -1,16 +1,14 @@
-import "reflect-metadata"
-import { DataSource } from "typeorm"
-import {FlightIndicator} from "./src/entities/FlightIndicator";
+import { DataSource } from "typeorm";
+import { FlightIndicator } from "./src/entities/FlightIndicator";
+require('dotenv').config();
 
-export const AppDataSource = new DataSource({
+export const AppDataSource: DataSource = new DataSource({
     type: "mysql",
-    host: "localhost",
-    port: 3306,
-    username: 'root',
-    password: 'Yoni130904',
-    database: 'FlightIndicatorDB',
-    synchronize: false,
+    host: process.env.DB_HOST,
+    port: Number(process.env.DB_PORT),
+    username: process.env.DB_USERNAME,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_DATABASE,
     entities: [FlightIndicator],
-    migrations: [],
-    subscribers: [],
-})
+    synchronize: false,
+});
