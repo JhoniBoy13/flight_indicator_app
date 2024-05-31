@@ -55,7 +55,7 @@ export class FlightIndicatorController {
 
         const parsedId: number = parseInt(id);
 
-        if (isNaN(parsedId) || !Number.isInteger(id)) {
+        if (isNaN(parsedId) || !Number.isInteger(parsedId)) {
             return this.errorHandlers.getError(res, 'INVALID_ID');
         }
 
