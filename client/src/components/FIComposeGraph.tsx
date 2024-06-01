@@ -9,10 +9,10 @@ import {
 
 export function FIComposeGraph({ degree }: { degree: number }): React.JSX.Element {
     return (
-        <div style={{ width: '100%', maxWidth: '500px', height: '500px' }}> {/* Adjust the size of the div */}
+        <div style={{ width: '100%', maxWidth: '470px', height: '450px' }}>
             <CircularGaugeComponent
                 background={"transparent"}
-                width="450px"  /* Adjust width of the gauge */
+                width="450px"
                 height="450px"
                 margin={{
                     top: 50,
@@ -54,7 +54,7 @@ export function FIComposeGraph({ degree }: { degree: number }): React.JSX.Elemen
                         <PointersDirective>
                             <PointerDirective
                                 value={degree}
-                                radius='110%'
+                                radius='105%'
                                 color='#FF0000'
                                 type='Marker'
                                 markerShape='InvertedTriangle'
@@ -64,7 +64,7 @@ export function FIComposeGraph({ degree }: { degree: number }): React.JSX.Elemen
                                 offset={10}
                             />
                             <PointerDirective
-                                value={degree}
+                                value={0}
                                 radius='95px'
                                 color='#FF0000'
                                 type='Marker'
