@@ -66,7 +66,7 @@ export class FlightIndicatorController {
         return true;
     }
 
-    async findOneById(req: Request, res: Response): Promise<void> {
+    async findOneById(req: Request, res: Response): Promise<FlightIndicator> {
         const id: string = req.params.id;
 
         if (!(await this.validateFindByIdRequest(req, res))) {
@@ -80,7 +80,8 @@ export class FlightIndicatorController {
                 this.errorHandlers.getError(res, 'FLIGHT_INDICATOR_NOT_FOUND');
                 return;
             }
-            res.json(flightIndicator);
+            res.status(201).json(flightIndicator);
+            return flightIndicator;
         } catch (error) {
             this.errorHandlers.getError(res, 'INTERNAL_SERVER_ERROR');
         }
