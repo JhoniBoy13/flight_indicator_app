@@ -8,7 +8,6 @@ export class FlightIndicatorService {
     async createFlightIndicator(flightIndicator: FlightIndicator): Promise<FlightIndicator> {
         return await this.flightIndicatorRepository.save(flightIndicator);
     }
-
     async findOneById(id: number): Promise<FlightIndicator | undefined> {
         return await this.flightIndicatorRepository.findOneBy({ ID: id });
     }

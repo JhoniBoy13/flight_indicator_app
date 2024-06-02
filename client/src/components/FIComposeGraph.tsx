@@ -1,15 +1,9 @@
 import React from 'react';
-import {
-    AxesDirective,
-    AxisDirective,
-    CircularGaugeComponent,
-    PointerDirective,
-    PointersDirective
-} from "@syncfusion/ej2-react-circulargauge";
+import {AxesDirective, AxisDirective, CircularGaugeComponent, PointerDirective, PointersDirective} from "@syncfusion/ej2-react-circulargauge";
 
-export function FIComposeGraph({ degree }: { degree: number }): React.JSX.Element {
+export function FIComposeGraph({degree}: { degree: number }): React.JSX.Element {
     return (
-        <div style={{ width: '100%', maxWidth: '470px', height: '450px' }}>
+        <div style={{width: '100%', maxWidth: '470px', height: '450px'}}>
             <CircularGaugeComponent
                 background={"transparent"}
                 width="450px"
@@ -27,7 +21,7 @@ export function FIComposeGraph({ degree }: { degree: number }): React.JSX.Elemen
                         maximum={360}
                         startAngle={0}
                         endAngle={360}
-                        lineStyle={{ width: 2, color: 'white' }}
+                        lineStyle={{width: 2, color: 'white'}}
                         majorTicks={{
                             interval: 30,
                             position: 'Inside',

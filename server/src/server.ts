@@ -20,13 +20,6 @@ AppDataSource.initialize().then(async (): Promise<void> => {
     const errorHandler: ErrorHandler = new ErrorHandler();
     const port: number = Number(process.env.PORT);
 
-    // app.use((req, res, next) => {
-    //     res.setHeader('Access-Control-Allow-Origin', '*'); // Allow requests from any origin
-    //     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE'); // Allow specified HTTP methods
-    //     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization'); // Allow specified headers
-    //     next();
-    // });
-
     app.use(bodyParser.json());
 
     app.use('/api', FlightIndicatorRoutes);

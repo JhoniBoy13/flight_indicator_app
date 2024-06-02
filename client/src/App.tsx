@@ -13,7 +13,7 @@ function App() {
     const [loadModal, setLoadModal] = useState<boolean>(false);
     const [saveModal, setSaveModal] = useState<boolean>(false);
 
-    const [flightIndicator, setFlightIndicator] = useState<FlightIndicator>({ADI: -99, HIS: 0, ALT: 0});
+    const [flightIndicator, setFlightIndicator] = useState<FlightIndicator>({ADI: -100, HIS: 0, ALT: 0});
 
     const dialogModalStates: DialogModalStates = {
         loadModal: {state: loadModal, setState: setLoadModal},
@@ -22,7 +22,7 @@ function App() {
 
     return (
         <div className="App">
-            <FILoadDialog open={loadModal} setOpen={setLoadModal} flightIndicator={flightIndicator} setFlightIndicator={setFlightIndicator}/>
+            <FILoadDialog open={loadModal} setOpen={setLoadModal} setFlightIndicator={setFlightIndicator}/>
 
             <header className={"App-header"}>
                 <FIHeader dialogModalStates={dialogModalStates}/>
@@ -48,5 +48,4 @@ function App() {
         </div>
     );
 }
-
 export default App;

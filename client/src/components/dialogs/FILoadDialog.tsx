@@ -5,23 +5,18 @@ import "../../asset/FIDialog.css";
 import {FlightIndicator} from "../../lib/entities/FlightIndicator";
 import {ApiHandler} from "../../lib/ApiHandler";
 
-export function FILoadDialog({open, setOpen, flightIndicator, setFlightIndicator}: {
-    open: boolean,
-    setOpen: React.Dispatch<React.SetStateAction<boolean>>,
-    flightIndicator: FlightIndicator,
-    setFlightIndicator: React.Dispatch<React.SetStateAction<FlightIndicator>>
-}): React.JSX.Element {
+export function FILoadDialog({open, setOpen, setFlightIndicator}: { open: boolean, setOpen: React.Dispatch<React.SetStateAction<boolean>>, setFlightIndicator: React.Dispatch<React.SetStateAction<FlightIndicator>> }): React.JSX.Element {
     const [id, setId] = useState<string>('');
 
     const apiHandler: ApiHandler = new ApiHandler();
-    const handleClose = () => {
+    const handleClose = ():void => {
         setOpen(false);
         setId('');
     };
 
-    const handleLoad = async () => {
+    const handleLoad = async ():Promise<void> => {
         try {
-            const response = await apiHandler.loadFlightIndicator(id);
+            const response:FlightIndicator = await apiHandler.loadFlightIndicator(id);
             setFlightIndicator(response);
             handleClose();
         }
