@@ -11,3 +11,42 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.g2-tooltip{
+  display: none!important;
+}
+
+.ant-progress-text {
+  color: white;
+}
+
+.App-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.component {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form-group {
+  margin-top: 20px;
+}
+
+.label {
+  text-align: center;
+  margin-top: 10px;
+  font-size: 14px;
+  color: #fff; /* Adjust this to match the current text color */
+}
