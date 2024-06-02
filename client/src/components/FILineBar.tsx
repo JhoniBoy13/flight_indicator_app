@@ -12,7 +12,5 @@ export function FILineBar({value}: { value: number }): React.JSX.Element {
                 <Bar dataKey="altitude" fill="#00FF00"/>
             </BarChart>
         </ResponsiveContainer>
-
-
     );
 }
