@@ -7,8 +7,8 @@ export function FILineBar({value}: { value: number }): React.JSX.Element {
     return (
         <ResponsiveContainer width={200} height={450}>
             <BarChart data={data} margin={{top: 20, right: 50, left: 5, bottom: 5}}>
-                <XAxis dataKey="name"/>
-                <YAxis domain={[0, 3000]}/>
+                <XAxis dataKey="name" stroke="#D0D0D0FF"/>
+                <YAxis domain={[0, 3000]} stroke="#D0D0D0FF"/>
                 <Bar dataKey="altitude" fill="#00FF00"/>
             </BarChart>
         </ResponsiveContainer>

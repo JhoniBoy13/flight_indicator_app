@@ -1,22 +1,26 @@
 import React, {useState} from "react";
 import {Button, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField} from "@mui/material";
 import {Dialog} from "@headlessui/react";
-import "../../asset/FIDialog.css";
-import {FlightIndicator} from "../../lib/entities/FlightIndicator";
+import {FlightIndicator} from "../../lib/interfaces/FlightIndicator";
 import {ApiHandler} from "../../lib/ApiHandler";
+import "../../asset/FIDialog.css";
 
-export function FILoadDialog({open, setOpen, setFlightIndicator}: { open: boolean, setOpen: React.Dispatch<React.SetStateAction<boolean>>, setFlightIndicator: React.Dispatch<React.SetStateAction<FlightIndicator>> }): React.JSX.Element {
+export function FILoadDialog({open, setOpen, setFlightIndicator}: {
+    open: boolean,
+    setOpen: React.Dispatch<React.SetStateAction<boolean>>,
+    setFlightIndicator: React.Dispatch<React.SetStateAction<FlightIndicator>>
+}): React.JSX.Element {
     const [id, setId] = useState<string>('');
 
     const apiHandler: ApiHandler = new ApiHandler();
-    const handleClose = ():void => {
+    const handleClose = (): void => {
         setOpen(false);
         setId('');
     };
 
-    const handleLoad = async ():Promise<void> => {
+    const handleLoad = async (): Promise<void> => {
         try {
-            const response:FlightIndicator = await apiHandler.loadFlightIndicator(id);
+            const response: FlightIndicator = await apiHandler.loadFlightIndicator(id);
             setFlightIndicator(response);
             handleClose();
         }
@@ -30,7 +34,7 @@ export function FILoadDialog({open, setOpen, setFlightIndicator}: { open: boolea
         <React.Fragment>
             <Dialog open={open} onClose={handleClose} className="dialog-container">
                 <div className="dialog-content">
-                    <DialogTitle>Load Flight Indicator</DialogTitle>
+                    <DialogTitle> Load Flight Indicator </DialogTitle>
                     <DialogContent>
                         <DialogContentText>
                             Please enter the ID of the flight indicator you wish to load.

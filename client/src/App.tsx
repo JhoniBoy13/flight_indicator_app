@@ -1,51 +1,38 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import './App.css';
-import {FIComposeGraph} from "./components/FIComposeGraph";
-import {FICircularBar} from "./components/FICircularBar";
-import {FILineBar} from "./components/FILineBar";
-import {FIHeader} from "./components/FIHeader";
-import {FILoadDialog} from "./components/dialogs/FILoadDialog";
-import {DialogModalStates} from "./lib/entities/DialogModalStates";
-import {FlightIndicator} from "./lib/entities/FlightIndicator";
+import { FIHeader } from "./components/FIHeader";
+import { FILoadDialog } from "./components/dialogs/FILoadDialog";
+import { DialogModalStates } from "./lib/interfaces/DialogModalStates";
+import { FlightIndicator } from "./lib/interfaces/FlightIndicator";
+import {Route, BrowserRouter as Router, Routes, Navigate} from 'react-router-dom';
+import VisualPage from './pages/VisualPage';
+import TextualPage from './pages/TextualPage';
 
 function App() {
-
     const [loadModal, setLoadModal] = useState<boolean>(false);
     const [saveModal, setSaveModal] = useState<boolean>(false);
-
-    const [flightIndicator, setFlightIndicator] = useState<FlightIndicator>({ADI: -100, HIS: 0, ALT: 0});
+    const [flightIndicator, setFlightIndicator] = useState<FlightIndicator>({ ADI: -100, HIS: 0, ALT: 0 });
 
     const dialogModalStates: DialogModalStates = {
-        loadModal: {state: loadModal, setState: setLoadModal},
-        saveModal: {state: saveModal, setState: setSaveModal}
+        loadModal: { state: loadModal, setState: setLoadModal },
+        saveModal: { state: saveModal, setState: setSaveModal }
     };
 
     return (
-        <div className="App">
-            <FILoadDialog open={loadModal} setOpen={setLoadModal} setFlightIndicator={setFlightIndicator}/>
-
-            <header className={"App-header"}>
-                <FIHeader dialogModalStates={dialogModalStates}/>
-            </header>
-            <div className="container">
-                <div className="d-flex flex-row">
-                    <div className="col-4">
-                        <FIComposeGraph degree={flightIndicator.HIS}/>
-                        <div className="label">HIS</div>
-                    </div>
-                    <div className="col-4">
-                        <FICircularBar adi={flightIndicator.ADI}/>
-                        <div className="label">ADI</div>
-                    </div>
-                    <div className="col-4">
-                        <FILineBar value={flightIndicator.ALT}/>
-                        <div className="label">Altitude</div>
-                    </div>
-                </div>
+        <Router>
+            <div className="App">
+                <FILoadDialog open={loadModal} setOpen={setLoadModal} setFlightIndicator={setFlightIndicator} />
+                <header className={"App-header"}>
+                    <FIHeader dialogModalStates={dialogModalStates} />
+                </header>
+                <Routes>
+                    <Route path="/" element={<Navigate to="/visual" />} />
+                    <Route path="/visual" element={<VisualPage flightIndicator={flightIndicator} />} />
+                    <Route path="/textual" element={<TextualPage flightIndicator={flightIndicator} />} />
+                </Routes>
             </div>
-
-
-        </div>
+        </Router>
     );
 }
+
 export default App;
