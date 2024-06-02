@@ -1,7 +1,7 @@
 import React from 'react';
 import {AxesDirective, AxisDirective, CircularGaugeComponent, PointerDirective, PointersDirective} from "@syncfusion/ej2-react-circulargauge";
 
-export function FIComposeGraph({degree}: { degree: number }): React.JSX.Element {
+export function FIComposeGraph({value}: { value: number }): React.JSX.Element {
     return (
         <div style={{width: '100%', maxWidth: '470px', height: '450px'}}>
             <CircularGaugeComponent
@@ -47,20 +47,20 @@ export function FIComposeGraph({degree}: { degree: number }): React.JSX.Element 
                     >
                         <PointersDirective>
                             <PointerDirective
-                                value={degree}
+                                value={value}
                                 radius='105%'
-                                color='#FF0000'
+                                color='#00ECFFFF'
                                 type='Marker'
                                 markerShape='InvertedTriangle'
-                                markerWidth={15}
+                                markerWidth={20}
 
-                                markerHeight={15}
+                                markerHeight={20}
                                 offset={10}
                             />
                             <PointerDirective
                                 value={0}
                                 radius='95px'
-                                color='#FF0000'
+                                color='#FF0000FF'
                                 type='Marker'
                                 markerShape='Triangle'
                                 markerWidth={10}

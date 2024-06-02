@@ -1,0 +1,42 @@
+.card {
+    border-radius: 26px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    width: 350px;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+.card-top {
+    background-color: rgba(255, 255, 255, 0.85);
+    padding: 16px;
+    height: 80px;
+    border-radius: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-title {
+    font-size: 36px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.card-bottom {
+    background-color: inherit;
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 26px;
+}
+
+.card-value {
+    font-size: 27px;
+    font-weight: bold;
+    margin: 0;
+}

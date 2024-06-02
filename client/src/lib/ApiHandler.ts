@@ -1,4 +1,4 @@
-import {FlightIndicator} from "./entities/FlightIndicator";
+import {FlightIndicator} from "./interfaces/FlightIndicator";
 
 export class ApiHandler {
     static baseURL: string = "http://localhost:3000/api/flight-indicators";
