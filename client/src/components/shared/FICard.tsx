@@ -7,7 +7,7 @@ interface CardProps {
     color: string;
 }
 
-export function FICard({ title, value, color }: CardProps): JSX.Element {
+export function FICard({ title, value, color }: CardProps) : React.JSX.Element {
     return (
         <div className="card" style={{backgroundColor: color}}>
             <div className="card-top">

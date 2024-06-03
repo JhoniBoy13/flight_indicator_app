@@ -1,32 +1,30 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import {Button, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField} from "@mui/material";
-import {Dialog} from "@headlessui/react";
-import {FlightIndicator} from "../../lib/interfaces/FlightIndicator";
-import {ApiHandler} from "../../lib/ApiHandler";
+import { Dialog } from "@headlessui/react";
+import { FlightIndicator } from "../../lib/interfaces/FlightIndicator";
+import { ApiHandler } from "../../lib/ApiHandler";
 import "../../asset/FIDialog.css";
+import {FIInput} from "../shared/FIInput";
 
-export function FILoadDialog({open, setOpen, setFlightIndicator}: {
-    open: boolean,
-    setOpen: React.Dispatch<React.SetStateAction<boolean>>,
-    setFlightIndicator: React.Dispatch<React.SetStateAction<FlightIndicator>>
-}): React.JSX.Element {
-    const [id, setId] = useState<string>('');
+export function FILoadDialog({ open, setOpen, setFlightIndicator }: { open: boolean, setOpen: React.Dispatch<React.SetStateAction<boolean>>, setFlightIndicator: React.Dispatch<React.SetStateAction<FlightIndicator>> }): React.JSX.Element {
+    const [id, setId] = useState<number>(undefined);
+    const [error, setError] = useState<string>('');
 
     const apiHandler: ApiHandler = new ApiHandler();
+
     const handleClose = (): void => {
         setOpen(false);
-        setId('');
+        setId(undefined);
+        setError('');  // Clear the error message when the dialog is closed
     };
-
     const handleLoad = async (): Promise<void> => {
         try {
             const response: FlightIndicator = await apiHandler.loadFlightIndicator(id);
             setFlightIndicator(response);
             handleClose();
-        }
-        catch (error) {
+        } catch (error) {
             console.error(error);
-            handleClose();
+            setError((error as Error).message);  // Set the error message
         }
     };
 
@@ -34,25 +32,17 @@ export function FILoadDialog({open, setOpen, setFlightIndicator}: {
         <React.Fragment>
             <Dialog open={open} onClose={handleClose} className="dialog-container">
                 <div className="dialog-content">
-                    <DialogTitle> Load Flight Indicator </DialogTitle>
+                    <DialogTitle>Load Flight Indicator</DialogTitle>
                     <DialogContent>
                         <DialogContentText>
                             Please enter the ID of the flight indicator you wish to load.
                         </DialogContentText>
-                        <TextField
-                            autoFocus
-                            placeholder="Enter ID of the flight indicator you wish to load"
-                            required
-                            margin="dense"
-                            id="flight-indicator-id"
-                            name="flight-indicator-id"
-                            label="Flight Indicator ID"
-                            type="text"
-                            fullWidth
-                            variant="standard"
-                            value={id}
-                            onChange={(e) => setId(e.target.value)}
-                        />
+                        <FIInput label={"Flight Indicator ID"} placeholder={'ID of the flight indicator you wish to load'} value={id} setValue={setId}/>
+                        { (
+                            <DialogContentText style={{ color: 'red' }}>
+                                {error}
+                            </DialogContentText>
+                        )}
                     </DialogContent>
                     <DialogActions>
                         <Button onClick={handleClose}>Cancel</Button>

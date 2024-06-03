@@ -22,6 +22,7 @@
 
 .card-title {
     font-size: 36px;
+    color: rgba(40, 40, 40, 0.75);
     font-weight: bold;
     margin: 0;
 }
@@ -39,4 +40,5 @@
     font-size: 27px;
     font-weight: bold;
     margin: 0;
+    color: rgba(255, 255, 255, 0.94);
 }

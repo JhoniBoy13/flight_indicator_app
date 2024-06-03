@@ -7,13 +7,13 @@ const TextualPage: React.FC<PageProps> = ({flightIndicator}: { flightIndicator: 
         <div className="container">
             <div className="d-flex flex-row">
                 <div className="col-4">
-                    <FICard title={'HIS'} value={flightIndicator.ALT} color={'#00ECFFFF'}/>
-                </div>
-                <div className="col-4">
-                    <FICard title={'ADI'} value={flightIndicator.ALT} color={'#fa14db'}/>
-                </div>
-                <div className="col-4">
                     <FICard title={'ALT'} value={flightIndicator.ALT} color={'#00FF00'}/>
+                </div>
+                <div className="col-4">
+                    <FICard title={'HIS'} value={flightIndicator.HIS} color={'#00ECFFFF'}/>
+                </div>
+                <div className="col-4">
+                    <FICard title={'ADI'} value={flightIndicator.ADI} color={'#fa14db'}/>
                 </div>
             </div>
         </div>
