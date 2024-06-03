@@ -1,0 +1,20 @@
+{
+  "MISSING_FIELDS": {
+    "message": "Missing required fields"
+  },
+  "INVALID_ALT": {
+    "message": "ALT must be between 0 and 3000"
+  },
+  "INVALID_HIS": {
+    "message": "HIS must be between 0 and 360"
+  },
+  "INVALID_ADI": {
+    "message": "ADI must be between -100 and 100"
+  },
+  "ID_MISSING": {
+    "message": "ID is missing"
+  },
+  "ID_NEGATIVE": {
+    "message": "ID must be a positive number"
+  }
+}

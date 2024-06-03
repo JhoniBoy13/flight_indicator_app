@@ -52,3 +52,16 @@ code {
   font-size: 14px;
   color: #fff; /* Adjust this to match the current text color */
 }
+
+/* Hide the default number input arrows */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
