@@ -15,7 +15,7 @@ export function FILoadDialog({ open, setOpen, setFlightIndicator }: { open: bool
     const handleClose = (): void => {
         setOpen(false);
         setId(undefined);
-        setError('');  // Clear the error message when the dialog is closed
+        setError('');
     };
     const handleLoad = async (): Promise<void> => {
         try {
@@ -24,7 +24,7 @@ export function FILoadDialog({ open, setOpen, setFlightIndicator }: { open: bool
             handleClose();
         } catch (error) {
             console.error(error);
-            setError((error as Error).message);  // Set the error message
+            setError((error as Error).message);
         }
     };
 
@@ -37,7 +37,7 @@ export function FILoadDialog({ open, setOpen, setFlightIndicator }: { open: bool
                         <DialogContentText>
                             Please enter the ID of the flight indicator you wish to load.
                         </DialogContentText>
-                        <FIInput label={"Flight Indicator ID"} placeholder={'ID of the flight indicator you wish to load'} value={id} setValue={setId}/>
+                        <FIInput label={"Flight Indicator ID"} placeholder={'ID of the flight indicator you wish to load'} setValue={setId}/>
                         { (
                             <DialogContentText style={{ color: 'red' }}>
                                 {error}
