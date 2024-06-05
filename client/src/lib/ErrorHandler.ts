@@ -5,7 +5,7 @@ export class ErrorHandler {
         return errors[errorKey].message;
     }
 
-    getMissingFieldsErrorMessage(errorKey: string, isHISMissing: boolean, isALTMissing: boolean, isADIMissing: boolean): string {
+    getMissingFieldsErrorMessage(errorKey: string, isALTMissing: boolean, isHISMissing: boolean, isADIMissing: boolean): string {
         const missingFields: string[] = [];
         if (isALTMissing) missingFields.push('ALT');
         if (isHISMissing) missingFields.push('HIS');
