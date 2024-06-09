@@ -43,9 +43,9 @@ export function FISaveDialog({ open, setOpen, setFlightIndicator }: { open: bool
                         <DialogContentText>
                             Please enter the flight indicator parameters you wish to save.
                         </DialogContentText>
-                        <FIInput label={'ALT'} placeholder={'ALT'} value={ALT} setValue={setALT}/>
-                        <FIInput label={'HIS'} placeholder={'HIS'} value={HIS} setValue={setHIS}/>
-                        <FIInput label={'ADI'} placeholder={'ADI'} value={ADI} setValue={setADI}/>
+                        <FIInput label={'ALT'} placeholder={'ALT'}  setValue={setALT}/>
+                        <FIInput label={'HIS'} placeholder={'HIS'}  setValue={setHIS}/>
+                        <FIInput label={'ADI'} placeholder={'ADI'}  setValue={setADI}/>
                         { (
                             <DialogContentText style={{ color: 'red' }}>
                                 {error}
